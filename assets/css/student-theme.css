@@ -1,0 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap');
+
+body {
+    font-family: 'Fredoka', sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.student-wrapper {
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    min-height: 100vh;
+    padding-bottom: 60px;
+}
+
+.student-navbar {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.student-card {
+    background: #ffffff;
+    border-radius: 25px;
+    border: none;
+    box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+.student-card:hover {
+    transform: translateY(-8px);
+}
+
+.card-header-fun {
+    background: transparent;
+    border-bottom: 2px dashed #f0f0f0;
+    padding: 1.5rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #4a4a4a;
+}
+
+.stat-bubble {
+    padding: 2rem;
+    border-radius: 25px;
+    color: white;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+}
+
+.bg-bubble-primary { background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%); }
+.bg-bubble-success { background: linear-gradient(45deg, #43e97b 0%, #38f9d7 100%); }
+.bg-bubble-warning { background: linear-gradient(45deg, #fa709a 0%, #fee140 100%); }
+.bg-bubble-info { background: linear-gradient(45deg, #667eea 0%, #764ba2 100%); }
+
+.rank-medal-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 120px;
+    margin-bottom: 1rem;
+}
+
+.medal-icon {
+    font-size: 5rem;
+    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2));
+    animation: float 3s ease-in-out infinite;
+}
+
+.medal-gold { color: #FFD700; }
+.medal-silver { color: #C0C0C0; }
+.medal-bronze { color: #CD7F32; }
+
+.task-item {
+    background: #fff;
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border-left: 6px solid #e0e0e0;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.task-item:hover {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+    transform: scale(1.01);
+}
+
+.task-item.priority-high { border-left-color: #ff6b6b; }
+.task-item.priority-medium { border-left-color: #feca57; }
+.task-item.completed { 
+    border-left-color: #1dd1a1; 
+    background-color: #f0fff4;
+    opacity: 0.8;
+}
+
+.btn-fun {
+    border-radius: 50px;
+    padding: 0.6rem 2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.btn-fun:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.btn-primary-fun {
+    background: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+    color: white;
+}
+
+.profile-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    object-fit: cover;
+}
+
+.welcome-text h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: -webkit-linear-gradient(#11998e, #38ef7d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+}
+
+.poin-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255,255,255,0.2);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+@keyframes popIn {
+    0% { opacity: 0; transform: scale(0.5); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+.animate-pop {
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.table-fun thead th {
+    border-top: none;
+    border-bottom: 2px solid #e9ecef;
+    color: #8898aa;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+.table-fun tbody td {
+    vertical-align: middle;
+    color: #525f7f;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.confetti-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+}
