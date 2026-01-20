@@ -1,13 +1,3 @@
 # Abaikan file environment (berisi password rahasia)
 .env
 
-# Abaikan isi folder writable (cache, logs, session, uploads)
-/writable/cache/*
-/writable/logs/*
-/writable/session/*
-/writable/uploads/*
-/writable/debugbar/*
-
-# TAPI jangan abaikan file gitignore di dalam folder writable
-# (Supaya struktur foldernya tetap ada meski isinya kosong)
-!/writable/**/*.gitignore
