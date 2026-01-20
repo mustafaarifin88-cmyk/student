@@ -246,3 +246,75 @@ in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
  8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
  9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
 DEBUG - 2026-01-20 13:27:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-20 13:51:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-20 13:51:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-20 13:55:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-20 13:55:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-20 13:55:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-20 13:55:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-20 13:57:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-20 13:57:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-20 13:57:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-20 14:02:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-01-20 14:02:01 --> ErrorException: Undefined variable $selected_waktu
+[Method: GET, Route: walas/kegiatan/create]
+in APPPATH\Views\walas\kegiatan\form.php on line 111.
+ 1 APPPATH\Views\walas\kegiatan\form.php(111): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $selected_waktu', 'E:\\Website\\xampp-portable-windows-x64-8.2.0-0-VS16\\xampp\\htdocs\\student\\app\\Views\\walas\\kegiatan\\form.php', 111)
+ 2 SYSTEMPATH\View\View.php(226): include('E:\\Website\\xampp-portable-windows-x64-8.2.0-0-VS16\\xampp\\htdocs\\student\\app\\Views\\walas\\kegiatan\\form.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('walas/kegiatan/form', [], true)
+ 5 APPPATH\Controllers\Walas\Kegiatan.php(51): view('walas/kegiatan/form', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Walas\Kegiatan->create()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Walas\Kegiatan))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-01-20 14:02:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-20 14:02:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-01-20 14:02:12 --> ErrorException: Undefined variable $selected_waktu
+[Method: GET, Route: walas/kegiatan/create]
+in APPPATH\Views\walas\kegiatan\form.php on line 111.
+ 1 APPPATH\Views\walas\kegiatan\form.php(111): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $selected_waktu', 'E:\\Website\\xampp-portable-windows-x64-8.2.0-0-VS16\\xampp\\htdocs\\student\\app\\Views\\walas\\kegiatan\\form.php', 111)
+ 2 SYSTEMPATH\View\View.php(226): include('E:\\Website\\xampp-portable-windows-x64-8.2.0-0-VS16\\xampp\\htdocs\\student\\app\\Views\\walas\\kegiatan\\form.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('walas/kegiatan/form', [], true)
+ 5 APPPATH\Controllers\Walas\Kegiatan.php(51): view('walas/kegiatan/form', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Walas\Kegiatan->create()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Walas\Kegiatan))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-01-20 14:03:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-20 14:03:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-20 14:03:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-20 14:03:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-20 14:04:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-01-20 14:04:06 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "walas/laporan/ranking.php"
+[Method: GET, Route: walas/laporan/ranking]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('walas/laporan/ranking.php')
+ 2 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('walas/laporan/ranking', [], true)
+ 3 APPPATH\Controllers\Walas\Laporan.php(90): view('walas/laporan/ranking', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Walas\Laporan->ranking()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Walas\Laporan))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-01-20 14:07:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-20 14:07:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-01-20 14:08:00 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "walas/profile/index.php"
+[Method: GET, Route: walas/profile]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('walas/profile/index.php')
+ 2 SYSTEMPATH\Common.php(1199): CodeIgniter\View\View->render('walas/profile/index', [], true)
+ 3 APPPATH\Controllers\Walas\Profile.php(19): view('walas/profile/index', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Walas\Profile->index()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Walas\Profile))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-01-20 14:25:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
