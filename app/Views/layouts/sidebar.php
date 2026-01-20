@@ -1,21 +1,162 @@
-<aside class="main-sidebar sidebar-dark-primary elevation-4" style="border-bottom-right-radius: 20px; overflow: hidden;">
-    <a href="#" class="brand-link text-center pt-3 pb-3">
-        <i class="fas fa-graduation-cap fa-2x text-white mb-2"></i>
-        <span class="brand-text font-weight-bold d-block text-white" style="letter-spacing: 1px;">STUDENT APP</span>
+<style>
+    /* Animasi Gradient Background */
+    @keyframes sidebar-gradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    .sidebar-radiant {
+        background: linear-gradient(-45deg, #4e73df, #224abe, #667eea, #764ba2);
+        background-size: 400% 400%;
+        animation: sidebar-gradient 15s ease infinite;
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+        
+        /* Flexbox Fix untuk Layout Sidebar */
+        display: flex !important;
+        flex-direction: column !important;
+        height: 100vh !important;
+        padding-bottom: 0 !important;
+    }
+
+    /* Area Logo - Fixed di Atas */
+    .brand-link-modern {
+        flex: 0 0 auto; /* Tidak menyusut, tinggi sesuai konten */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem 1rem;
+        background: rgba(0, 0, 0, 0.1);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+        width: 100%;
+    }
+    
+    .brand-link-modern:hover {
+        background: rgba(0, 0, 0, 0.2);
+    }
+
+    /* Area Menu - Scrollable Mengisi Sisa Ruang */
+    .sidebar {
+        flex: 1 1 auto; /* Mengisi sisa ruang */
+        overflow-y: auto !important; /* Paksa Scroll Vertikal */
+        overflow-x: hidden;
+        width: 100%;
+        padding-bottom: 50px; /* Ruang di bawah agar menu terakhir tidak kepotong */
+        
+        /* Custom Scrollbar untuk Webkit (Chrome/Safari) agar tidak merusak desain */
+        scrollbar-width: thin;
+        scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+    }
+
+    .sidebar::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    .sidebar::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .sidebar::-webkit-scrollbar-thumb {
+        background-color: rgba(255, 255, 255, 0.3);
+        border-radius: 20px;
+    }
+
+    /* Styling User Panel */
+    .user-panel-modern {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        padding: 15px;
+        margin: 15px 10px;
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+        transition: transform 0.2s;
+    }
+
+    .user-panel-modern:hover {
+        transform: translateY(-2px);
+        background: rgba(255, 255, 255, 0.15);
+    }
+
+    /* Navigasi Modern */
+    .nav-sidebar .nav-link {
+        color: rgba(255, 255, 255, 0.8) !important;
+        border-radius: 10px !important;
+        margin-bottom: 5px;
+        transition: all 0.2s;
+        white-space: normal; /* Mencegah teks panjang merusak layout */
+    }
+
+    .nav-sidebar .nav-link:hover {
+        background-color: rgba(255, 255, 255, 0.2) !important;
+        color: #fff !important;
+        padding-left: 1.5rem;
+    }
+
+    .nav-sidebar .nav-link.active {
+        background-color: #fff !important;
+        color: #4e73df !important;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        font-weight: 600;
+    }
+
+    .nav-sidebar .nav-link.active i {
+        color: #4e73df !important;
+    }
+
+    .nav-header-modern {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        padding: 1rem 1rem 0.5rem;
+        font-weight: 700;
+        margin-top: 10px;
+    }
+
+    .logout-btn {
+        background: rgba(231, 74, 59, 0.8) !important;
+        backdrop-filter: blur(5px);
+        margin-top: 20px;
+        margin-bottom: 40px; /* Tambahan margin bawah */
+        border: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .logout-btn:hover {
+        background: #e74a3b !important;
+    }
+</style>
+
+<aside class="main-sidebar sidebar-dark-primary elevation-4 sidebar-radiant">
+    <!-- Brand Logo Area -->
+    <a href="#" class="brand-link-modern text-decoration-none">
+        <div class="bg-white rounded-circle d-flex align-items-center justify-content-center shadow-sm mb-2" style="width: 50px; height: 50px;">
+            <i class="fas fa-graduation-cap fa-lg text-primary"></i>
+        </div>
+        <span class="brand-text font-weight-bold text-white h5 mb-0" style="letter-spacing: 1px;">STUDENT APP</span>
+        <small class="text-white-50" style="font-size: 0.7rem;">Sistem Informasi Siswa</small>
     </a>
 
+    <!-- Sidebar Scroll Area -->
     <div class="sidebar">
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex align-items-center" style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+        <!-- User Panel Modern -->
+        <div class="user-panel-modern">
             <div class="image">
                 <?php $foto = session()->get('foto') ? session()->get('foto') : 'default.png'; ?>
-                <img src="<?= base_url('uploads/profil/' . $foto) ?>" class="img-circle elevation-2" alt="User Image" style="width: 45px; height: 45px; object-fit: cover; border: 2px solid rgba(255,255,255,0.8);">
+                <img src="<?= base_url('uploads/profil/' . $foto) ?>" class="img-circle elevation-2" alt="User Image" style="width: 45px; height: 45px; object-fit: cover; border: 2px solid #fff;">
             </div>
-            <div class="info ml-2">
-                <a href="#" class="d-block text-white font-weight-bold"><?= substr(session()->get('nama_lengkap'), 0, 15) ?></a>
-                <small class="text-light" style="opacity: 0.8;"><i class="fas fa-circle text-success text-xs mr-1"></i> <?= ucfirst(session()->get('role')) ?></small>
+            <div class="info pl-3">
+                <a href="<?= base_url(session()->get('role') . '/profile') ?>" class="d-block text-white font-weight-bold text-decoration-none" style="line-height: 1.2;">
+                    <?= substr(session()->get('nama_lengkap'), 0, 15) ?>
+                </a>
+                <span class="badge badge-light mt-1 text-primary px-2" style="font-size: 0.7rem; font-weight: 600;"><?= strtoupper(session()->get('role')) ?></span>
             </div>
         </div>
 
+        <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
                 
@@ -26,7 +167,7 @@
                 $segment3 = $uri->getTotalSegments() > 2 ? $uri->getSegment(3) : '';
                 ?>
 
-                <li class="nav-item">
+                <li class="nav-item mb-2">
                     <a href="<?= base_url($role . '/dashboard') ?>" class="nav-link <?= ($segment2 == 'dashboard') ? 'active' : '' ?>">
                         <i class="nav-icon fas fa-th-large"></i>
                         <p>Dashboard</p>
@@ -34,7 +175,7 @@
                 </li>
 
                 <?php if($role == 'admin'): ?>
-                    <li class="nav-header text-uppercase font-weight-bold mt-2" style="color: rgba(255,255,255,0.5); font-size: 0.8rem; letter-spacing: 1px;">Master Data</li>
+                    <div class="nav-header-modern">Master Data</div>
                     
                     <li class="nav-item">
                         <a href="<?= base_url('admin/sekolah') ?>" class="nav-link <?= ($segment2 == 'sekolah') ? 'active' : '' ?>">
@@ -64,16 +205,16 @@
                         </a>
                     </li>
 
-                    <li class="nav-header text-uppercase font-weight-bold mt-2" style="color: rgba(255,255,255,0.5); font-size: 0.8rem; letter-spacing: 1px;">Admin</li>
+                    <div class="nav-header-modern">Manajemen</div>
                     
                     <li class="nav-item">
                         <a href="<?= base_url('admin/user') ?>" class="nav-link <?= ($segment2 == 'user') ? 'active' : '' ?>">
                             <i class="nav-icon fas fa-users-cog"></i>
-                            <p>Manajemen Admin</p>
+                            <p>Admin Users</p>
                         </a>
                     </li>
 
-                    <li class="nav-header text-uppercase font-weight-bold mt-2" style="color: rgba(255,255,255,0.5); font-size: 0.8rem; letter-spacing: 1px;">Laporan</li>
+                    <div class="nav-header-modern">Laporan</div>
 
                     <li class="nav-item">
                         <a href="<?= base_url('admin/laporan/kegiatan') ?>" class="nav-link <?= ($segment2 == 'laporan' && $segment3 == 'kegiatan') ? 'active' : '' ?>">
@@ -90,7 +231,7 @@
                     </li>
 
                 <?php elseif($role == 'walas'): ?>
-                    <li class="nav-header text-uppercase font-weight-bold mt-2" style="color: rgba(255,255,255,0.5); font-size: 0.8rem; letter-spacing: 1px;">Kelas Saya</li>
+                    <div class="nav-header-modern">Kelas Saya</div>
 
                     <li class="nav-item">
                         <a href="<?= base_url('walas/siswa') ?>" class="nav-link <?= ($segment2 == 'siswa') ? 'active' : '' ?>">
@@ -106,7 +247,7 @@
                         </a>
                     </li>
 
-                    <li class="nav-header text-uppercase font-weight-bold mt-2" style="color: rgba(255,255,255,0.5); font-size: 0.8rem; letter-spacing: 1px;">Laporan</li>
+                    <div class="nav-header-modern">Laporan</div>
 
                     <li class="nav-item">
                         <a href="<?= base_url('walas/laporan/kegiatan') ?>" class="nav-link <?= ($segment2 == 'laporan' && $segment3 == 'kegiatan') ? 'active' : '' ?>">
@@ -123,7 +264,7 @@
                     </li>
                 <?php endif; ?>
 
-                <li class="nav-header text-uppercase font-weight-bold mt-2" style="color: rgba(255,255,255,0.5); font-size: 0.8rem; letter-spacing: 1px;">Pengaturan</li>
+                <div class="nav-header-modern">Akun</div>
                 
                 <li class="nav-item">
                     <a href="<?= base_url($role . '/profile') ?>" class="nav-link <?= ($segment2 == 'profile') ? 'active' : '' ?>">
@@ -132,10 +273,10 @@
                     </a>
                 </li>
                 
-                <li class="nav-item mt-3">
-                    <a href="<?= base_url('auth/logout') ?>" class="nav-link bg-danger text-white">
+                <li class="nav-item">
+                    <a href="<?= base_url('auth/logout') ?>" class="nav-link logout-btn text-white">
                         <i class="nav-icon fas fa-sign-out-alt"></i>
-                        <p>Logout</p>
+                        <p>Keluar Aplikasi</p>
                     </a>
                 </li>
 
