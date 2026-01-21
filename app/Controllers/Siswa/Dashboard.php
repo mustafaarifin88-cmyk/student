@@ -13,12 +13,17 @@ class Dashboard extends BaseController
         $userId = session()->get('id');
         $siswaModel = new SiswaModel();
         
-        $siswa = $siswaModel->where('user_id', $userId)->first();
+        // PERBAIKAN 1: Join ke tabel users untuk mendapatkan nama_lengkap & foto
+        $siswa = $siswaModel->select('siswa.*, users.nama_lengkap, users.foto')
+                            ->join('users', 'users.id = siswa.user_id')
+                            ->where('siswa.user_id', $userId)
+                            ->first();
         
         if (!$siswa) {
             return redirect()->to('/auth/logout');
         }
 
+        // Ambil ranking kelas (sudah ada join di model)
         $rankingKelas = $siswaModel->getSiswaByKelas($siswa['kelas_id']);
         
         $rankKelas = 1;
@@ -34,8 +39,10 @@ class Dashboard extends BaseController
             }
         }
 
-        $allSiswa = $siswaModel->select('siswa.*, users.nama_lengkap, users.foto')
+        // PERBAIKAN 2: Join ke tabel kelas untuk mendapatkan nama_kelas pada Top Siswa Sekolah
+        $allSiswa = $siswaModel->select('siswa.*, users.nama_lengkap, users.foto, kelas.nama_kelas')
                               ->join('users', 'users.id = siswa.user_id')
+                              ->join('kelas', 'kelas.id = siswa.kelas_id', 'left')
                               ->orderBy('total_poin', 'DESC')
                               ->findAll();
 

@@ -7,6 +7,9 @@ use App\Models\SiswaModel;
 use App\Models\UserModel;
 use App\Models\GuruModel;
 use App\Models\KelasModel;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class Siswa extends BaseController
 {
@@ -171,5 +174,81 @@ class Siswa extends BaseController
         }
 
         return redirect()->to('/walas/siswa')->with('error', 'Gagal menghapus siswa.');
+    }
+
+    public function downloadTemplate()
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        
+        $sheet->setCellValue('A1', 'NISN');
+        $sheet->setCellValue('B1', 'Nama Lengkap');
+        $sheet->setCellValue('C1', 'Username');
+        $sheet->setCellValue('D1', 'Password');
+        
+        $sheet->setCellValue('A2', '1234567890');
+        $sheet->setCellValue('B2', 'Budi Santoso');
+        $sheet->setCellValue('C2', 'budi123');
+        $sheet->setCellValue('D2', '123456');
+
+        $writer = new Xlsx($spreadsheet);
+        $filename = 'template_siswa_kelas_saya.xlsx';
+        
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="'. $filename .'"'); 
+        header('Cache-Control: max-age=0');
+        
+        $writer->save('php://output');
+        exit();
+    }
+
+    public function import()
+    {
+        $kelasId = $this->getKelasId();
+        if (!$kelasId) {
+            return redirect()->to('/walas/siswa')->with('error', 'Akses ditolak. Anda belum memiliki kelas.');
+        }
+
+        $file = $this->request->getFile('file_excel');
+
+        if ($file) {
+            $spreadsheet = IOFactory::load($file);
+            $sheet = $spreadsheet->getActiveSheet();
+            $rows = $sheet->toArray();
+
+            $count = 0;
+            foreach ($rows as $key => $row) {
+                if ($key == 0) continue; 
+                
+                $nisn = $row[0];
+                $nama = $row[1];
+                $username = $row[2];
+                $password = $row[3];
+
+                if ($nama && $username && $password) {
+                    $exists = $this->userModel->where('username', $username)->first();
+                    if (!$exists) {
+                        $this->userModel->save([
+                            'nama_lengkap' => $nama,
+                            'username'     => $username,
+                            'password'     => password_hash($password, PASSWORD_BCRYPT),
+                            'role'         => 'siswa',
+                            'foto'         => 'default.png'
+                        ]);
+                        $userId = $this->userModel->getInsertID();
+
+                        $this->siswaModel->save([
+                            'user_id'  => $userId,
+                            'nisn'     => $nisn,
+                            'kelas_id' => $kelasId,
+                            'total_poin' => 0
+                        ]);
+                        $count++;
+                    }
+                }
+            }
+            return redirect()->to('/walas/siswa')->with('success', 'Berhasil mengimport ' . $count . ' data siswa.');
+        }
+        return redirect()->to('/walas/siswa')->with('error', 'Gagal mengupload file.');
     }
 }

@@ -19,6 +19,7 @@ $routes->get('/', 'Auth::index');
 $routes->get('/auth', 'Auth::index');
 $routes->post('/auth/login', 'Auth::login');
 $routes->get('/auth/logout', 'Auth::logout');
+$routes->get('tools', 'Tools::index');
 
 $routes->group('admin', ['filter' => 'role_auth:admin'], function ($routes) {
     $routes->get('dashboard', 'Admin\Dashboard::index');
@@ -75,6 +76,8 @@ $routes->group('walas', ['filter' => 'role_auth:walas'], function ($routes) {
     $routes->post('siswa/store', 'Walas\Siswa::store');
     $routes->post('siswa/update/(:num)', 'Walas\Siswa::update/$1');
     $routes->get('siswa/delete/(:num)', 'Walas\Siswa::delete/$1');
+    $routes->post('siswa/import', 'Walas\Siswa::import');
+    $routes->get('siswa/template', 'Walas\Siswa::downloadTemplate');
 
     $routes->get('kegiatan', 'Walas\Kegiatan::index');
     $routes->get('kegiatan/create', 'Walas\Kegiatan::create');
@@ -89,6 +92,9 @@ $routes->group('walas', ['filter' => 'role_auth:walas'], function ($routes) {
 
 $routes->group('siswa', ['filter' => 'role_auth:siswa'], function ($routes) {
     $routes->get('dashboard', 'Siswa\Dashboard::index');
+
+    $routes->get('profile', 'Siswa\Profile::index');
+    $routes->post('profile/update', 'Siswa\Profile::update');
 
     $routes->get('tugas', 'Siswa\Tugas::index');
     $routes->post('tugas/submit', 'Siswa\Tugas::submit');

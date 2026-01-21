@@ -47,6 +47,17 @@
         box-shadow: 0 8px 20px rgba(28, 200, 138, 0.6);
         color: white;
     }
+    .btn-gradient-primary {
+        background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+        border: none;
+        color: white;
+        box-shadow: 0 4px 15px rgba(78, 115, 223, 0.4);
+    }
+    .btn-gradient-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(78, 115, 223, 0.6);
+        color: white;
+    }
     .user-avatar {
         width: 45px;
         height: 45px;
@@ -75,6 +86,12 @@
     }
     .modal-header-modern {
         background: linear-gradient(135deg, #1cc88a 0%, #13855c 100%);
+        color: white;
+        border-radius: 20px 20px 0 0;
+        padding: 1.5rem;
+    }
+    .modal-header-modern-import {
+        background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
         color: white;
         border-radius: 20px 20px 0 0;
         padding: 1.5rem;
@@ -113,9 +130,14 @@
         <h1 class="h3 mb-1 text-gray-800 font-weight-bold">Data Siswa</h1>
         <p class="mb-0 text-muted small">Kelola data siswa di kelas Anda.</p>
     </div>
-    <button type="button" class="btn btn-gradient-success btn-sm rounded-pill px-3 mt-3 mt-sm-0" data-toggle="modal" data-target="#addModal">
-        <i class="fas fa-plus mr-1"></i> Tambah Siswa
-    </button>
+    <div>
+        <button type="button" class="btn btn-gradient-primary btn-sm rounded-pill px-3 mt-3 mt-sm-0 mr-2" data-toggle="modal" data-target="#importModal">
+            <i class="fas fa-file-excel mr-1"></i> Import Excel
+        </button>
+        <button type="button" class="btn btn-gradient-success btn-sm rounded-pill px-3 mt-3 mt-sm-0" data-toggle="modal" data-target="#addModal">
+            <i class="fas fa-plus mr-1"></i> Tambah Siswa
+        </button>
+    </div>
 </div>
 
 <?php if (isset($error)): ?>
@@ -277,6 +299,46 @@
                 <div class="modal-footer border-top-0 pt-0 px-4 pb-4">
                     <button type="button" class="btn btn-light rounded-pill px-4" data-dismiss="modal">Batal</button>
                     <button type="submit" class="btn btn-gradient-success rounded-pill px-4">Simpan Data</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content modal-content-modern">
+            <div class="modal-header modal-header-modern-import">
+                <h5 class="modal-title font-weight-bold" id="importModalLabel">
+                    <i class="fas fa-file-import mr-2"></i> Import Data Siswa
+                </h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="<?= base_url('walas/siswa/import') ?>" method="post" enctype="multipart/form-data">
+                <div class="modal-body p-4">
+                    <div class="text-center mb-4">
+                        <div class="mb-3">
+                            <i class="fas fa-file-excel fa-4x text-success"></i>
+                        </div>
+                        <p class="text-muted">Upload file Excel (.xlsx) untuk menambahkan data siswa secara massal ke kelas Anda.</p>
+                        <a href="<?= base_url('walas/siswa/template') ?>" class="btn btn-outline-success btn-sm rounded-pill mt-2">
+                            <i class="fas fa-download mr-1"></i> Download Template
+                        </a>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="font-weight-bold text-gray-700">Pilih File Excel</label>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="file_excel" name="file_excel" accept=".xlsx, .xls" required>
+                            <label class="custom-file-label" style="border-radius: 10px;">Choose file...</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-top-0 pt-0 px-4 pb-4">
+                    <button type="button" class="btn btn-light rounded-pill px-4" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-gradient-primary rounded-pill px-4">Upload & Import</button>
                 </div>
             </form>
         </div>

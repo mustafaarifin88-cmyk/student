@@ -31,6 +31,18 @@
             border: 2px solid #fff;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
+        .dropdown-item {
+            padding: 10px 20px;
+            transition: all 0.2s;
+        }
+        .dropdown-item:hover {
+            background-color: #f8f9fa;
+            color: #6a11cb;
+        }
+        .dropdown-item i {
+            width: 20px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -49,13 +61,19 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ml-auto align-items-center">
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= base_url('siswa/dashboard') ?>">Dashboard</a>
+                            <a class="nav-link" href="<?= base_url('siswa/dashboard') ?>">
+                                <i class="fas fa-th-large mr-1 d-lg-none"></i> Dashboard
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= base_url('siswa/tugas') ?>">Tugas Saya</a>
+                            <a class="nav-link" href="<?= base_url('siswa/tugas') ?>">
+                                <i class="fas fa-tasks mr-1 d-lg-none"></i> Tugas Saya
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= base_url('siswa/laporan') ?>">Laporan</a>
+                            <a class="nav-link" href="<?= base_url('siswa/laporan') ?>">
+                                <i class="fas fa-chart-line mr-1 d-lg-none"></i> Laporan
+                            </a>
                         </li>
                         <li class="nav-item dropdown ml-lg-3">
                             <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -64,8 +82,13 @@
                                 <img src="<?= base_url('uploads/profil/' . $foto) ?>" class="user-img-circle">
                             </a>
                             <div class="dropdown-menu dropdown-menu-right animated--grow-in" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="<?= base_url('auth/logout') ?>">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                <a class="dropdown-item" href="<?= base_url('siswa/profile') ?>">
+                                    <i class="fas fa-user-edit fa-sm fa-fw mr-2 text-primary"></i>
+                                    Edit Profil
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item text-danger" href="<?= base_url('auth/logout') ?>">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2"></i>
                                     Logout
                                 </a>
                             </div>
@@ -77,14 +100,20 @@
 
         <div class="container mt-4 pb-5">
             <?php if(session()->getFlashdata('success')): ?>
-                <div class="alert alert-success border-0 shadow-sm" style="border-radius: 15px; background-color: #d4edda; color: #155724;">
+                <div class="alert alert-success border-0 shadow-sm animate-pop" style="border-radius: 15px; background-color: #d4edda; color: #155724;">
                     <i class="fas fa-check-circle mr-2"></i> <?= session()->getFlashdata('success') ?>
                 </div>
             <?php endif; ?>
 
             <?php if(session()->getFlashdata('error')): ?>
-                <div class="alert alert-danger border-0 shadow-sm" style="border-radius: 15px; background-color: #f8d7da; color: #721c24;">
+                <div class="alert alert-danger border-0 shadow-sm animate-pop" style="border-radius: 15px; background-color: #f8d7da; color: #721c24;">
                     <i class="fas fa-exclamation-circle mr-2"></i> <?= session()->getFlashdata('error') ?>
+                </div>
+            <?php endif; ?>
+
+            <?php if(session()->getFlashdata('info')): ?>
+                <div class="alert alert-info border-0 shadow-sm animate-pop" style="border-radius: 15px; background-color: #d1ecf1; color: #0c5460;">
+                    <i class="fas fa-info-circle mr-2"></i> <?= session()->getFlashdata('info') ?>
                 </div>
             <?php endif; ?>
 

@@ -18,11 +18,17 @@ class LogAktivitasModel extends Model
     protected $createdField  = 'tanggal_dikerjakan';
     protected $updatedField  = '';
 
-    public function getLogsBySiswa($siswaId)
+    public function getLogsBySiswa($siswaId, $startDate = null, $endDate = null)
     {
         $this->select('log_aktivitas.*, kegiatan.judul, kegiatan.instruksi');
         $this->join('kegiatan', 'kegiatan.id = log_aktivitas.kegiatan_id');
         $this->where('log_aktivitas.siswa_id', $siswaId);
+
+        if ($startDate && $endDate) {
+            $this->where('log_aktivitas.tanggal_dikerjakan >=', $startDate . ' 00:00:00');
+            $this->where('log_aktivitas.tanggal_dikerjakan <=', $endDate . ' 23:59:59');
+        }
+
         $this->orderBy('log_aktivitas.tanggal_dikerjakan', 'DESC');
 
         return $this->findAll();

@@ -23,6 +23,27 @@ class Laporan extends BaseController
         $this->kelasModel = new KelasModel();
     }
 
+    private function getFilterDates($waktu)
+    {
+        $startDate = null;
+        $endDate = date('Y-m-d');
+
+        if ($waktu) {
+            switch ($waktu) {
+                case '1_minggu':
+                    $startDate = date('Y-m-d', strtotime('-1 week'));
+                    break;
+                case '1_bulan':
+                    $startDate = date('Y-m-d', strtotime('-1 month'));
+                    break;
+                case '1_tahun':
+                    $startDate = date('Y-m-d', strtotime('-1 year'));
+                    break;
+            }
+        }
+        return ['start' => $startDate, 'end' => $endDate];
+    }
+
     public function index()
     {
         $userId = session()->get('id');
@@ -32,12 +53,16 @@ class Laporan extends BaseController
             return redirect()->to('/auth/logout');
         }
 
-        $logs = $this->logModel->getLogsBySiswa($siswa['id']);
+        $waktu = $this->request->getVar('waktu');
+        $dates = $this->getFilterDates($waktu);
+
+        $logs = $this->logModel->getLogsBySiswa($siswa['id'], $dates['start'], $dates['end']);
         
         $data = [
             'title' => 'Laporan Aktivitas Saya',
             'logs'  => $logs,
-            'siswa' => $siswa
+            'siswa' => $siswa,
+            'selected_waktu' => $waktu 
         ];
 
         return view('siswa/laporan/index', $data);
@@ -53,14 +78,20 @@ class Laporan extends BaseController
         }
         
         $siswaLengkap = $this->siswaModel->getSiswaLengkap($siswaRaw['id']);
-        $logs = $this->logModel->getLogsBySiswa($siswaRaw['id']);
+        
+        $waktu = $this->request->getGet('waktu');
+        $dates = $this->getFilterDates($waktu);
+        
+        $logs = $this->logModel->getLogsBySiswa($siswaRaw['id'], $dates['start'], $dates['end']);
 
         $dompdf = new Dompdf();
         
+        $titleSuffix = $waktu ? ' (' . str_replace('_', ' ', $waktu) . ')' : '';
+
         $html = view('siswa/laporan/cetak_pdf', [
             'siswa' => $siswaLengkap,
             'logs' => $logs,
-            'title' => 'Laporan Aktivitas Siswa'
+            'title' => 'Laporan Aktivitas Siswa' . $titleSuffix
         ]);
 
         $dompdf->loadHtml($html);
@@ -79,7 +110,11 @@ class Laporan extends BaseController
         }
 
         $siswaLengkap = $this->siswaModel->getSiswaLengkap($siswaRaw['id']);
-        $logs = $this->logModel->getLogsBySiswa($siswaRaw['id']);
+        
+        $waktu = $this->request->getGet('waktu');
+        $dates = $this->getFilterDates($waktu);
+
+        $logs = $this->logModel->getLogsBySiswa($siswaRaw['id'], $dates['start'], $dates['end']);
 
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -88,13 +123,17 @@ class Laporan extends BaseController
         $sheet->setCellValue('A2', 'Nama: ' . $siswaLengkap['nama_lengkap']);
         $sheet->setCellValue('A3', 'Kelas: ' . $siswaLengkap['nama_kelas']);
         $sheet->setCellValue('A4', 'NISN: ' . $siswaLengkap['nisn']);
+        
+        if($waktu) {
+            $sheet->setCellValue('A5', 'Periode: ' . ucwords(str_replace('_', ' ', $waktu)));
+        }
 
-        $sheet->setCellValue('A6', 'No');
-        $sheet->setCellValue('B6', 'Tanggal');
-        $sheet->setCellValue('C6', 'Kegiatan');
-        $sheet->setCellValue('D6', 'Poin Diperoleh');
+        $sheet->setCellValue('A7', 'No');
+        $sheet->setCellValue('B7', 'Tanggal');
+        $sheet->setCellValue('C7', 'Kegiatan');
+        $sheet->setCellValue('D7', 'Poin Diperoleh');
 
-        $row = 7;
+        $row = 8;
         $no = 1;
         foreach ($logs as $log) {
             $sheet->setCellValue('A' . $row, $no++);
