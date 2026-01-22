@@ -13,9 +13,9 @@ class Dashboard extends BaseController
         $userId = session()->get('id');
         $siswaModel = new SiswaModel();
         
-        // PERBAIKAN 1: Join ke tabel users untuk mendapatkan nama_lengkap & foto
-        $siswa = $siswaModel->select('siswa.*, users.nama_lengkap, users.foto')
+        $siswa = $siswaModel->select('siswa.*, users.nama_lengkap, users.foto, kelas.pesan_motivasi, kelas.nama_kelas')
                             ->join('users', 'users.id = siswa.user_id')
+                            ->join('kelas', 'kelas.id = siswa.kelas_id', 'left') 
                             ->where('siswa.user_id', $userId)
                             ->first();
         
@@ -23,13 +23,14 @@ class Dashboard extends BaseController
             return redirect()->to('/auth/logout');
         }
 
-        // Ambil ranking kelas (sudah ada join di model)
         $rankingKelas = $siswaModel->getSiswaByKelas($siswa['kelas_id']);
         
         $rankKelas = 1;
         $topSiswaKelas = null;
+        $totalSiswaKelas = 0;
         
         if (!empty($rankingKelas)) {
+            $totalSiswaKelas = count($rankingKelas);
             $topSiswaKelas = $rankingKelas[0];
             foreach ($rankingKelas as $index => $s) {
                 if ($s['id'] == $siswa['id']) {
@@ -39,7 +40,6 @@ class Dashboard extends BaseController
             }
         }
 
-        // PERBAIKAN 2: Join ke tabel kelas untuk mendapatkan nama_kelas pada Top Siswa Sekolah
         $allSiswa = $siswaModel->select('siswa.*, users.nama_lengkap, users.foto, kelas.nama_kelas')
                               ->join('users', 'users.id = siswa.user_id')
                               ->join('kelas', 'kelas.id = siswa.kelas_id', 'left')
@@ -48,8 +48,10 @@ class Dashboard extends BaseController
 
         $rankSekolah = 1;
         $topSiswaSekolah = null;
+        $totalSiswaSekolah = 0;
 
         if (!empty($allSiswa)) {
+            $totalSiswaSekolah = count($allSiswa);
             $topSiswaSekolah = $allSiswa[0];
             foreach ($allSiswa as $index => $s) {
                 if ($s['id'] == $siswa['id']) {
@@ -65,7 +67,9 @@ class Dashboard extends BaseController
             'rank_kelas'        => $rankKelas,
             'rank_sekolah'      => $rankSekolah,
             'top_siswa_kelas'   => $topSiswaKelas,
-            'top_siswa_sekolah' => $topSiswaSekolah
+            'top_siswa_sekolah' => $topSiswaSekolah,
+            'total_siswa_kelas' => $totalSiswaKelas,
+            'total_siswa_sekolah' => $totalSiswaSekolah
         ];
 
         return view('siswa/dashboard', $data);

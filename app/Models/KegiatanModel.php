@@ -12,7 +12,7 @@ class KegiatanModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['wali_kelas_id', 'judul', 'instruksi', 'tanggal_dibuat'];
+    protected $allowedFields    = ['wali_kelas_id', 'judul', 'instruksi', 'tipe', 'tanggal_dibuat'];
 
     protected $useTimestamps = true;
     protected $createdField  = 'tanggal_dibuat';

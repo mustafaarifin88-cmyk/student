@@ -1,5 +1,4 @@
 <style>
-    /* Animasi Gradient Background */
     @keyframes sidebar-gradient {
         0% { background-position: 0% 50%; }
         50% { background-position: 100% 50%; }
@@ -11,17 +10,14 @@
         background-size: 400% 400%;
         animation: sidebar-gradient 15s ease infinite;
         border-right: 1px solid rgba(255, 255, 255, 0.1);
-        
-        /* Flexbox Fix untuk Layout Sidebar */
         display: flex !important;
         flex-direction: column !important;
         height: 100vh !important;
         padding-bottom: 0 !important;
     }
 
-    /* Area Logo - Fixed di Atas */
     .brand-link-modern {
-        flex: 0 0 auto; /* Tidak menyusut, tinggi sesuai konten */
+        flex: 0 0 auto;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -37,15 +33,12 @@
         background: rgba(0, 0, 0, 0.2);
     }
 
-    /* Area Menu - Scrollable Mengisi Sisa Ruang */
     .sidebar {
-        flex: 1 1 auto; /* Mengisi sisa ruang */
-        overflow-y: auto !important; /* Paksa Scroll Vertikal */
+        flex: 1 1 auto;
+        overflow-y: auto !important;
         overflow-x: hidden;
         width: 100%;
-        padding-bottom: 50px; /* Ruang di bawah agar menu terakhir tidak kepotong */
-        
-        /* Custom Scrollbar untuk Webkit (Chrome/Safari) agar tidak merusak desain */
+        padding-bottom: 50px;
         scrollbar-width: thin;
         scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
     }
@@ -63,7 +56,6 @@
         border-radius: 20px;
     }
 
-    /* Styling User Panel */
     .user-panel-modern {
         background: rgba(255, 255, 255, 0.1);
         border-radius: 15px;
@@ -81,13 +73,12 @@
         background: rgba(255, 255, 255, 0.15);
     }
 
-    /* Navigasi Modern */
     .nav-sidebar .nav-link {
         color: rgba(255, 255, 255, 0.8) !important;
         border-radius: 10px !important;
         margin-bottom: 5px;
         transition: all 0.2s;
-        white-space: normal; /* Mencegah teks panjang merusak layout */
+        white-space: normal;
     }
 
     .nav-sidebar .nav-link:hover {
@@ -121,7 +112,7 @@
         background: rgba(231, 74, 59, 0.8) !important;
         backdrop-filter: blur(5px);
         margin-top: 20px;
-        margin-bottom: 40px; /* Tambahan margin bawah */
+        margin-bottom: 40px;
         border: 1px solid rgba(255,255,255,0.1);
     }
     
@@ -131,7 +122,6 @@
 </style>
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4 sidebar-radiant">
-    <!-- Brand Logo Area -->
     <a href="#" class="brand-link-modern text-decoration-none">
         <div class="bg-white rounded-circle d-flex align-items-center justify-content-center shadow-sm mb-2" style="width: 50px; height: 50px;">
             <i class="fas fa-graduation-cap fa-lg text-primary"></i>
@@ -140,9 +130,7 @@
         <small class="text-white-50" style="font-size: 0.7rem;">Sistem Informasi Siswa</small>
     </a>
 
-    <!-- Sidebar Scroll Area -->
     <div class="sidebar">
-        <!-- User Panel Modern -->
         <div class="user-panel-modern">
             <div class="image">
                 <?php $foto = session()->get('foto') ? session()->get('foto') : 'default.png'; ?>
@@ -156,7 +144,6 @@
             </div>
         </div>
 
-        <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
                 
@@ -244,6 +231,13 @@
                         <a href="<?= base_url('walas/kegiatan') ?>" class="nav-link <?= ($segment2 == 'kegiatan') ? 'active' : '' ?>">
                             <i class="nav-icon fas fa-clipboard-list"></i>
                             <p>Kegiatan & Tugas</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="<?= base_url('walas/pengaturan') ?>" class="nav-link <?= ($segment2 == 'pengaturan') ? 'active' : '' ?>">
+                            <i class="nav-icon fas fa-cogs"></i>
+                            <p>Pengaturan Kelas</p>
                         </a>
                     </li>
 

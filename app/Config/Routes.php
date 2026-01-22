@@ -72,6 +72,9 @@ $routes->group('walas', ['filter' => 'role_auth:walas'], function ($routes) {
     $routes->get('profile', 'Walas\Profile::index');
     $routes->post('profile/update', 'Walas\Profile::update');
 
+    $routes->get('pengaturan', 'Walas\Pengaturan::index');
+    $routes->post('pengaturan/update', 'Walas\Pengaturan::update');
+
     $routes->get('siswa', 'Walas\Siswa::index');
     $routes->post('siswa/store', 'Walas\Siswa::store');
     $routes->post('siswa/update/(:num)', 'Walas\Siswa::update/$1');

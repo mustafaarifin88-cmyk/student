@@ -82,6 +82,8 @@
         letter-spacing: 0.5px;
         box-shadow: 0 5px 15px rgba(37, 117, 252, 0.3);
         transition: all 0.2s;
+        width: 100%;
+        color: white;
     }
     .btn-submit-task:hover {
         transform: translateY(-2px);
@@ -108,6 +110,19 @@
         padding: 2rem;
         text-align: center;
         margin-top: auto;
+    }
+    .upload-area {
+        border: 2px dashed #e3e6f0;
+        border-radius: 15px;
+        padding: 1.5rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s;
+        background: #f8f9fa;
+    }
+    .upload-area:hover {
+        border-color: #4e73df;
+        background: #f0f4ff;
     }
 </style>
 
@@ -140,7 +155,10 @@
                             <?php endif; ?>
                         </div>
                         <h5 class="font-weight-bold mb-1 pr-5" style="font-size: 1.25rem;"><?= $t['kegiatan']['judul'] ?></h5>
-                        <small class="text-white-50"><i class="far fa-calendar-alt mr-1"></i> Dibuat: <?= date('d M Y', strtotime($t['kegiatan']['tanggal_dibuat'])) ?></small>
+                        <div class="d-flex align-items-center text-white-50 small">
+                            <span class="mr-3"><i class="fas fa-clock mr-1"></i> Tipe: <?= ucfirst($t['kegiatan']['tipe']) ?></span>
+                            <span><i class="far fa-calendar-alt mr-1"></i> <?= date('d M Y', strtotime($t['kegiatan']['tanggal_dibuat'])) ?></span>
+                        </div>
                     </div>
                     
                     <div class="task-body">
@@ -155,19 +173,36 @@
                             <div class="completed-box">
                                 <i class="fas fa-medal fa-3x text-success mb-3"></i>
                                 <h2 class="text-success font-weight-bold mb-1">+<?= $t['nilai'] ?> Poin</h2>
-                                <p class="small text-muted mb-0">Kamu hebat! Tugas ini sudah diverifikasi selesai.</p>
+                                <p class="small text-muted mb-0">
+                                    <?php if($t['kegiatan']['tipe'] == 'harian'): ?>
+                                        Tugas harian ini sudah selesai untuk hari ini. <br>Kembali lagi besok!
+                                    <?php else: ?>
+                                        Tugas ini sudah kamu selesaikan.
+                                    <?php endif; ?>
+                                </p>
                             </div>
                         <?php else: ?>
-                            <form action="<?= base_url('siswa/tugas/submit') ?>" method="post" class="mt-auto">
+                            <form action="<?= base_url('siswa/tugas/submit') ?>" method="post" enctype="multipart/form-data" class="mt-auto">
                                 <?= csrf_field() ?>
                                 <input type="hidden" name="kegiatan_id" value="<?= $t['kegiatan']['id'] ?>">
                                 
+                                <div class="mb-4">
+                                    <h6 class="font-weight-bold text-primary text-uppercase small mb-2">Bukti Kegiatan (Wajib)</h6>
+                                    <div class="upload-area position-relative">
+                                        <input type="file" name="bukti_foto" class="position-absolute w-100 h-100" style="top:0; left:0; opacity:0; cursor:pointer;" onchange="updateFileName(this, 'label_<?= $t['kegiatan']['id'] ?>')" required accept="image/*">
+                                        <div id="label_<?= $t['kegiatan']['id'] ?>">
+                                            <i class="fas fa-camera fa-2x text-gray-300 mb-2"></i>
+                                            <p class="small text-muted mb-0">Klik untuk ambil foto / upload bukti</p>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <h6 class="font-weight-bold text-primary text-uppercase small mb-3" style="letter-spacing: 1px;">Checklist Poin</h6>
                                 
                                 <?php if(!empty($t['kriteria'])): ?>
                                     <div class="mb-4">
                                         <?php foreach ($t['kriteria'] as $k): ?>
-                                            <div class="criteria-item d-flex align-items-center justify-content-between">
+                                            <div class="criteria-item d-flex align-items-center justify-content-between p-2 mb-2 border rounded">
                                                 <div class="custom-control custom-checkbox custom-checkbox-modern flex-grow-1">
                                                     <input type="checkbox" class="custom-control-input" id="kriteria_<?= $k['id'] ?>" name="kriteria[]" value="<?= $k['id'] ?>">
                                                     <label class="custom-control-label" for="kriteria_<?= $k['id'] ?>">
@@ -184,7 +219,7 @@
                                     </div>
                                 <?php endif; ?>
 
-                                <button type="submit" class="btn btn-submit-task btn-block text-white" onclick="return confirm('Apakah kamu yakin sudah mengerjakan tugas ini sesuai kriteria yang dipilih? Data tidak bisa diubah setelah dikirim.')">
+                                <button type="submit" class="btn btn-submit-task" onclick="return confirm('Apakah kamu yakin sudah mengerjakan tugas ini sesuai kriteria yang dipilih? Data tidak bisa diubah setelah dikirim.')">
                                     <span class="d-flex align-items-center justify-content-center">
                                         <i class="fas fa-paper-plane mr-2"></i> Kirim Laporan Saya
                                     </span>
@@ -198,4 +233,12 @@
     </div>
 <?php endif; ?>
 
+<script>
+function updateFileName(input, labelId) {
+    if (input.files && input.files[0]) {
+        var fileName = input.files[0].name;
+        document.getElementById(labelId).innerHTML = '<i class="fas fa-check-circle text-success mb-1"></i><p class="small text-dark font-weight-bold mb-0">' + fileName + '</p>';
+    }
+}
+</script>
 <?= $this->endSection() ?>

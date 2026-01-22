@@ -5,84 +5,132 @@
     .welcome-card {
         background: url('<?= base_url('assets/dist/img/photo4.jpg') ?>') no-repeat center center;
         background-size: cover;
-        border-radius: 25px;
+        border-radius: 20px;
         position: relative;
         overflow: hidden;
         color: white;
-        margin-bottom: 2rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        height: 180px;
     }
     .welcome-overlay {
-        background: linear-gradient(90deg, rgba(106, 17, 203, 0.9) 0%, rgba(37, 117, 252, 0.8) 100%);
-        padding: 3rem 2rem;
+        background: linear-gradient(90deg, rgba(78, 84, 200, 0.9) 0%, rgba(143, 148, 251, 0.8) 100%);
+        padding: 0 2rem;
         width: 100%;
         height: 100%;
         display: flex;
         align-items: center;
     }
+    
     .stat-card {
-        border-radius: 20px;
-        padding: 1.5rem;
+        border-radius: 15px;
+        padding: 1.2rem;
         height: 100%;
-        transition: transform 0.3s;
+        transition: transform 0.2s, box-shadow 0.2s;
         border: none;
         color: white;
         position: relative;
         overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
     .stat-card:hover {
-        transform: translateY(-10px);
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
     }
-    .bg-gradient-gold { background: linear-gradient(135deg, #FFD700 0%, #FDB931 100%); }
-    .bg-gradient-silver { background: linear-gradient(135deg, #E0E0E0 0%, #BDBDBD 100%); }
-    .bg-gradient-bronze { background: linear-gradient(135deg, #CD7F32 0%, #A0522D 100%); }
-    .bg-gradient-blue { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
-    .bg-gradient-purple { background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%); }
     
-    .medal-img {
-        width: 80px;
-        filter: drop-shadow(0 5px 5px rgba(0,0,0,0.2));
-        margin-bottom: 10px;
+    .bg-rank-kelas { 
+        background: linear-gradient(135deg, #3a7bd5 0%, #3a6073 100%); 
     }
+    .bg-rank-sekolah { 
+        background: linear-gradient(135deg, #8E2DE2 0%, #4A00E0 100%); 
+    }
+    .bg-poin { 
+        background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); 
+    }
+    
+    .card-label {
+        text-transform: uppercase;
+        font-weight: 600;
+        letter-spacing: 1px;
+        font-size: 0.75rem;
+        opacity: 0.9;
+        margin-bottom: 5px;
+    }
+    
     .rank-number {
-        font-size: 3.5rem;
-        font-weight: 800;
-        line-height: 1;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        font-size: 2.5rem;
+        font-weight: 700;
+        line-height: 1.1;
+        margin: 5px 0;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.15);
+        display: flex;
+        align-items: baseline;
     }
+
+    .total-number {
+        font-size: 1.2rem;
+        font-weight: 400;
+        opacity: 0.7;
+        margin-left: 5px;
+    }
+
+    .stat-icon-bg {
+        position: absolute;
+        right: -10px;
+        bottom: -10px;
+        font-size: 6rem;
+        opacity: 0.15;
+        transform: rotate(-15deg);
+    }
+
+    .sub-text {
+        font-size: 0.8rem;
+        opacity: 0.9;
+        font-weight: 400;
+    }
+
+    .medal-badge {
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(5px);
+        border-radius: 50px;
+        padding: 4px 12px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        margin-top: 5px;
+        width: fit-content;
+    }
+    
     .leader-card {
         background: white;
-        border-radius: 20px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        padding: 1.5rem;
         text-align: center;
-        border: 2px solid #f0f0f0;
+        border: 1px solid #f0f0f0;
+        height: 100%;
     }
     .leader-avatar {
-        width: 80px;
-        height: 80px;
+        width: 70px;
+        height: 70px;
         border-radius: 50%;
-        border: 4px solid #fff;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        border: 3px solid #fff;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         object-fit: cover;
-        margin-bottom: 1rem;
+        margin-bottom: 0.8rem;
     }
     .crown-icon {
-        font-size: 2rem;
+        font-size: 1.8rem;
         color: #FFD700;
         margin-bottom: -15px;
         z-index: 2;
         position: relative;
     }
-    .circle-bg-icon {
-        position: absolute;
-        right: -20px;
-        bottom: -20px;
-        font-size: 8rem;
-        opacity: 0.2;
-        transform: rotate(-15deg);
-    }
-
-    /* Animasi Medali */
+    
     .medal-animated {
         font-size: 7rem;
         animation: float-medal 3s ease-in-out infinite;
@@ -99,45 +147,37 @@
 
 <div class="row animate-pop">
     <div class="col-12">
-        <div class="welcome-card shadow-lg">
+        <div class="welcome-card">
             <div class="welcome-overlay">
                 <div class="row w-100 align-items-center">
-                    <div class="col-md-8">
-                        <h1 class="font-weight-bold mb-2">Hai, <?= $siswa['nama_lengkap'] ?>! 👋</h1>
-                        <p class="lead mb-4" style="opacity: 0.9;">Semangat belajar dan kumpulkan poin sebanyak-banyaknya hari ini!</p>
-                        <a href="<?= base_url('siswa/tugas') ?>" class="btn btn-light rounded-pill px-4 py-2 font-weight-bold text-primary shadow">
-                            <i class="fas fa-rocket mr-2"></i> Lihat Tugas Saya
+                    <div class="col-md-9">
+                        <h2 class="font-weight-bold mb-1">Assalamualaikum, <?= $siswa['nama_lengkap'] ?>! 👋</h2>
+                        <p class="mb-3 small" style="opacity: 0.9;">
+                            <?= !empty($siswa['pesan_motivasi']) ? $siswa['pesan_motivasi'] : 'Ayo kumpulkan poin hari ini!' ?>
+                        </p>
+                        <a href="<?= base_url('siswa/tugas') ?>" class="btn btn-sm btn-light rounded-pill px-4 font-weight-bold text-primary shadow-sm">
+                            Lihat Tugas
                         </a>
                     </div>
-                    <div class="col-md-4 text-center d-none d-md-block">
+                    <div class="col-md-3 text-center d-none d-md-block">
                         <?php 
                             $medalColor = '';
                             $showMedal = false;
                             
-                            // Cek Ranking Kelas untuk Medali (1, 2, 3)
-                            if ($rank_kelas == 1) { 
-                                $medalColor = 'text-gold'; 
-                                $showMedal = true;
-                            } elseif ($rank_kelas == 2) { 
-                                $medalColor = 'text-silver'; 
-                                $showMedal = true;
-                            } elseif ($rank_kelas == 3) { 
-                                $medalColor = 'text-bronze'; 
-                                $showMedal = true;
-                            }
+                            if ($rank_kelas == 1) { $medalColor = 'text-gold'; $showMedal = true; } 
+                            elseif ($rank_kelas == 2) { $medalColor = 'text-silver'; $showMedal = true; } 
+                            elseif ($rank_kelas == 3) { $medalColor = 'text-bronze'; $showMedal = true; }
                         ?>
 
                         <?php if ($showMedal): ?>
                             <div class="medal-wrapper">
                                 <i class="fas fa-medal medal-animated <?= $medalColor ?>"></i>
-                                <!-- Perbaikan: Mengganti text-white menjadi text-primary agar terlihat di atas badge-light -->
                                 <div class="mt-3 font-weight-bold text-primary badge badge-light rounded-pill px-3 shadow-sm" style="font-size: 1rem; opacity: 0.9;">
                                     Juara <?= $rank_kelas ?> Kelas
                                 </div>
                             </div>
                         <?php else: ?>
-                            <!-- Tampilkan ilustrasi semangat jika ranking > 3 -->
-                            <i class="fas fa-user-graduate fa-6x text-white-50" style="filter: drop-shadow(0 0 10px rgba(255,255,255,0.3)); animation: float-medal 4s infinite;"></i>
+                            <i class="fas fa-user-graduate fa-6x text-white-50" style="filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));"></i>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -148,95 +188,101 @@
 
 <div class="row mb-4">
     <div class="col-md-4 mb-3 mb-md-0">
-        <?php 
-            $bgClass = 'bg-gradient-blue';
-            $medalIcon = '';
-            // Ranking card tetap menampilkan info ranking
-            if ($rank_kelas == 1) { $bgClass = 'bg-gradient-gold'; $medalIcon = '🥇'; }
-            elseif ($rank_kelas == 2) { $bgClass = 'bg-gradient-silver'; $medalIcon = '🥈'; }
-            elseif ($rank_kelas == 3) { $bgClass = 'bg-gradient-bronze'; $medalIcon = '🥉'; }
-        ?>
-        <div class="stat-card <?= $bgClass ?> shadow text-center">
-            <i class="fas fa-chalkboard-teacher circle-bg-icon"></i>
-            <h5 class="text-uppercase font-weight-bold mb-3" style="opacity: 0.9;">Ranking Kelas</h5>
-            <?php if($medalIcon): ?>
-                <div class="display-4"><?= $medalIcon ?></div>
+        <div class="stat-card bg-rank-kelas">
+            <i class="fas fa-chalkboard-teacher stat-icon-bg"></i>
+            <div>
+                <div class="card-label"><i class="fas fa-layer-group mr-1"></i> Ranking Kelas</div>
+                <div class="rank-number">
+                    <?= $rank_kelas ?>
+                    <span class="total-number">/ <?= $total_siswa_kelas ?></span>
+                </div>
+                <div class="sub-text">Posisi di kelas <?= $siswa['nama_kelas'] ?? '' ?></div>
+            </div>
+            
+            <?php if($rank_kelas <= 3): ?>
+                <div class="medal-badge">
+                    <i class="fas fa-trophy mr-1 <?= $rank_kelas == 1 ? 'text-warning' : ($rank_kelas == 2 ? 'text-light' : 'text-orange') ?>"></i> 
+                    Juara <?= $rank_kelas ?>
+                </div>
             <?php endif; ?>
-            <div class="rank-number"><?= $rank_kelas ?></div>
-            <p class="mb-0 mt-2 font-weight-bold">Dari semua siswa di kelasmu</p>
         </div>
     </div>
 
     <div class="col-md-4 mb-3 mb-md-0">
-        <?php 
-            $bgClassSekolah = 'bg-gradient-purple';
-            $medalIconSekolah = '';
-            if ($rank_sekolah == 1) { $bgClassSekolah = 'bg-gradient-gold'; $medalIconSekolah = '🥇'; }
-            elseif ($rank_sekolah == 2) { $bgClassSekolah = 'bg-gradient-silver'; $medalIconSekolah = '🥈'; }
-            elseif ($rank_sekolah == 3) { $bgClassSekolah = 'bg-gradient-bronze'; $medalIconSekolah = '🥉'; }
-        ?>
-        <div class="stat-card <?= $bgClassSekolah ?> shadow text-center">
-            <i class="fas fa-school circle-bg-icon"></i>
-            <h5 class="text-uppercase font-weight-bold mb-3" style="opacity: 0.9;">Ranking Sekolah</h5>
-            <?php if($medalIconSekolah): ?>
-                <div class="display-4"><?= $medalIconSekolah ?></div>
+        <div class="stat-card bg-rank-sekolah">
+            <i class="fas fa-school stat-icon-bg"></i>
+            <div>
+                <div class="card-label"><i class="fas fa-university mr-1"></i> Ranking Sekolah</div>
+                <div class="rank-number">
+                    <?= $rank_sekolah ?>
+                    <span class="total-number">/ <?= $total_siswa_sekolah ?></span>
+                </div>
+                <div class="sub-text">Tingkat satu sekolah</div>
+            </div>
+
+            <?php if($rank_sekolah <= 3): ?>
+                <div class="medal-badge">
+                    <i class="fas fa-medal mr-1 <?= $rank_sekolah == 1 ? 'text-warning' : ($rank_sekolah == 2 ? 'text-light' : 'text-orange') ?>"></i> 
+                    Top 3 Sekolah
+                </div>
             <?php endif; ?>
-            <div class="rank-number"><?= $rank_sekolah ?></div>
-            <p class="mb-0 mt-2 font-weight-bold">Tingkat satu sekolah</p>
         </div>
     </div>
 
     <div class="col-md-4">
-        <div class="stat-card bg-bubble-success shadow text-center">
-            <i class="fas fa-star circle-bg-icon"></i>
-            <h5 class="text-uppercase font-weight-bold mb-3" style="opacity: 0.9;">Total Poin Kamu</h5>
-            <div class="rank-number"><?= number_format($siswa['total_poin']) ?></div>
-            <div class="mt-2 badge badge-light text-success px-3 py-2 rounded-pill font-weight-bold" style="font-size: 1rem;">
-                Keep Going! 🔥
+        <div class="stat-card bg-poin">
+            <i class="fas fa-star stat-icon-bg"></i>
+            <div>
+                <div class="card-label"><i class="fas fa-coins mr-1"></i> Total Poin</div>
+                <div class="rank-number"><?= number_format($siswa['total_poin']) ?></div>
+                <div class="sub-text">Poin keaktifan terkumpul</div>
+            </div>
+            <div class="medal-badge">
+                <i class="fas fa-fire mr-1 text-warning"></i> Keep Going!
             </div>
         </div>
     </div>
 </div>
 
-<h4 class="font-weight-bold text-gray-800 mb-3 mt-5 px-2 border-left-4 border-primary">
-    <span style="border-left: 5px solid #6a11cb; padding-left: 10px;">Hall of Fame</span>
-</h4>
+<h6 class="font-weight-bold text-gray-600 mb-3 mt-4 px-1 text-uppercase small" style="letter-spacing: 1px;">
+    <i class="fas fa-crown text-warning mr-2"></i> Hall of Fame
+</h6>
 
 <div class="row">
-    <div class="col-md-6 mb-4">
-        <div class="leader-card h-100">
+    <div class="col-md-6 mb-3">
+        <div class="leader-card">
             <div class="crown-icon"><i class="fas fa-crown"></i></div>
-            <h5 class="font-weight-bold text-gray-600 mb-4">Juara 1 Di Kelasmu</h5>
+            <div class="small font-weight-bold text-gray-500 mb-3 text-uppercase">Juara 1 Kelasmu</div>
             
             <?php if ($top_siswa_kelas): ?>
                 <?php $foto = $top_siswa_kelas['foto'] ? $top_siswa_kelas['foto'] : 'default.png'; ?>
                 <img src="<?= base_url('uploads/profil/' . $foto) ?>" class="leader-avatar" alt="Top Class">
-                <h4 class="font-weight-bold text-primary mb-1"><?= $top_siswa_kelas['nama_lengkap'] ?></h4>
-                <p class="text-muted mb-3"><?= $top_siswa_kelas['nama_kelas'] ?></p>
-                <div class="badge badge-warning text-white px-4 py-2 rounded-pill shadow-sm" style="background: #f1c40f; font-size: 1rem;">
-                    <i class="fas fa-star mr-1"></i> <?= $top_siswa_kelas['total_poin'] ?> Poin
-                </div>
+                <h5 class="font-weight-bold text-dark mb-0"><?= $top_siswa_kelas['nama_lengkap'] ?></h5>
+                <small class="text-muted d-block mb-2"><?= $top_siswa_kelas['nama_kelas'] ?? '-' ?></small>
+                <span class="badge badge-pill badge-primary px-3">
+                    <i class="fas fa-star mr-1 text-warning"></i> <?= $top_siswa_kelas['total_poin'] ?> Poin
+                </span>
             <?php else: ?>
-                <p class="text-muted mt-4">Belum ada data.</p>
+                <p class="text-muted small">Belum ada data.</p>
             <?php endif; ?>
         </div>
     </div>
 
-    <div class="col-md-6 mb-4">
-        <div class="leader-card h-100" style="border-color: #ffd700;">
+    <div class="col-md-6 mb-3">
+        <div class="leader-card" style="border: 1px solid #FFD700;">
             <div class="crown-icon"><i class="fas fa-crown fa-lg"></i></div>
-            <h5 class="font-weight-bold text-gray-600 mb-4">Juara 1 Satu Sekolah</h5>
+            <div class="small font-weight-bold text-gray-500 mb-3 text-uppercase">Juara 1 Sekolah</div>
             
             <?php if ($top_siswa_sekolah): ?>
                 <?php $foto = $top_siswa_sekolah['foto'] ? $top_siswa_sekolah['foto'] : 'default.png'; ?>
-                <img src="<?= base_url('uploads/profil/' . $foto) ?>" class="leader-avatar" alt="Top School" style="border-color: #ffd700;">
-                <h4 class="font-weight-bold text-warning mb-1"><?= $top_siswa_sekolah['nama_lengkap'] ?></h4>
-                <p class="text-muted mb-3"><?= $top_siswa_sekolah['nama_kelas'] ?></p>
-                <div class="badge badge-warning text-white px-4 py-2 rounded-pill shadow-sm" style="background: linear-gradient(45deg, #FFD700, #FDB931); border: none; font-size: 1rem;">
-                    <i class="fas fa-star mr-1"></i> <?= $top_siswa_sekolah['total_poin'] ?> Poin
-                </div>
+                <img src="<?= base_url('uploads/profil/' . $foto) ?>" class="leader-avatar" alt="Top School" style="border-color: #FFD700;">
+                <h5 class="font-weight-bold text-dark mb-0"><?= $top_siswa_sekolah['nama_lengkap'] ?></h5>
+                <small class="text-muted d-block mb-2"><?= $top_siswa_sekolah['nama_kelas'] ?? '-' ?></small>
+                <span class="badge badge-pill badge-warning text-white px-3" style="background-color: #f39c12;">
+                    <i class="fas fa-trophy mr-1"></i> <?= $top_siswa_sekolah['total_poin'] ?> Poin
+                </span>
             <?php else: ?>
-                <p class="text-muted mt-4">Belum ada data.</p>
+                <p class="text-muted small">Belum ada data.</p>
             <?php endif; ?>
         </div>
     </div>

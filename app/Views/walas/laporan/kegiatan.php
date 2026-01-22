@@ -81,6 +81,18 @@
         color: #006064;
         border: 1px solid #b2ebf2;
     }
+    .thumbnail-img {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: transform 0.2s;
+        border: 2px solid #e3e6f0;
+    }
+    .thumbnail-img:hover {
+        transform: scale(1.1);
+    }
     @media print {
         .no-print { display: none !important; }
         .card-modern { box-shadow: none !important; border: 1px solid #ddd !important; }
@@ -131,10 +143,11 @@
                 <thead>
                     <tr>
                         <th width="5%" class="text-center">No</th>
-                        <th width="20%">Tanggal</th>
-                        <th width="35%">Identitas Siswa</th>
+                        <th width="15%">Tanggal</th>
+                        <th width="25%">Siswa</th>
                         <th width="25%">Kegiatan</th>
-                        <th width="15%" class="text-center">Poin Didapat</th>
+                        <th width="15%" class="text-center">Bukti</th>
+                        <th width="15%" class="text-center">Poin</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -167,21 +180,30 @@
                                 <td>
                                     <div class="d-flex flex-column">
                                         <span class="font-weight-bold text-success"><?= $log['judul'] ?></span>
-                                        <small class="text-muted text-truncate" style="max-width: 200px;">
-                                            Tugas Selesai
+                                        <small class="text-muted badge badge-light border mt-1" style="width: fit-content;">
+                                            <?= isset($log['tipe']) ? ucfirst($log['tipe']) : 'Umum' ?>
                                         </small>
                                     </div>
                                 </td>
                                 <td class="text-center">
+                                    <?php if(!empty($log['bukti_foto'])): ?>
+                                        <a href="<?= base_url('uploads/bukti/' . $log['bukti_foto']) ?>" target="_blank" title="Lihat Bukti Foto">
+                                            <img src="<?= base_url('uploads/bukti/' . $log['bukti_foto']) ?>" class="thumbnail-img" alt="Bukti" onerror="this.src='<?= base_url('assets/dist/img/default-150x150.png') ?>'">
+                                        </a>
+                                    <?php else: ?>
+                                        <span class="text-muted small font-italic">- Tidak ada -</span>
+                                    <?php endif; ?>
+                                </td>
+                                <td class="text-center">
                                     <span class="badge badge-poin px-3 py-2 rounded-pill font-weight-bold">
-                                        + <?= $log['total_poin_diperoleh'] ?> Poin
+                                        + <?= $log['total_poin_diperoleh'] ?>
                                     </span>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else : ?>
                         <tr>
-                            <td colspan="5" class="text-center py-5">
+                            <td colspan="6" class="text-center py-5">
                                 <div class="py-4">
                                     <i class="fas fa-clipboard-check fa-4x text-gray-200 mb-3"></i>
                                     <p class="text-muted mb-0">Belum ada aktivitas siswa pada rentang waktu ini.</p>

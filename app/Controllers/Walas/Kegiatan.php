@@ -58,6 +58,7 @@ class Kegiatan extends BaseController
         if (!$this->validate([
             'judul'       => 'required',
             'instruksi'   => 'required',
+            'tipe'        => 'required|in_list[harian,sekali]',
             'deskripsi.*' => 'required',
             'poin.*'      => 'required|numeric'
         ])) {
@@ -68,6 +69,7 @@ class Kegiatan extends BaseController
             'wali_kelas_id' => $guruId,
             'judul'         => $this->request->getPost('judul'),
             'instruksi'     => $this->request->getPost('instruksi'),
+            'tipe'          => $this->request->getPost('tipe'),
             'tanggal_dibuat'=> date('Y-m-d H:i:s')
         ]);
 
@@ -121,6 +123,7 @@ class Kegiatan extends BaseController
         if (!$this->validate([
             'judul'       => 'required',
             'instruksi'   => 'required',
+            'tipe'        => 'required|in_list[harian,sekali]',
             'deskripsi.*' => 'required',
             'poin.*'      => 'required|numeric'
         ])) {
@@ -129,7 +132,8 @@ class Kegiatan extends BaseController
 
         $this->kegiatanModel->update($id, [
             'judul'     => $this->request->getPost('judul'),
-            'instruksi' => $this->request->getPost('instruksi')
+            'instruksi' => $this->request->getPost('instruksi'),
+            'tipe'      => $this->request->getPost('tipe')
         ]);
 
         $this->kriteriaModel->where('kegiatan_id', $id)->delete();

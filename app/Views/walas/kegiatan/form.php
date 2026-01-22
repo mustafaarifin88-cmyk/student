@@ -82,6 +82,13 @@
         font-size: 1.2rem;
         box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
+    .custom-select-modern {
+        border-radius: 0 10px 10px 0;
+        height: 48px;
+        border: 1px solid #e3e6f0;
+        border-left: none;
+        background-color: #f8f9fc;
+    }
 </style>
 
 <div class="row justify-content-center">
@@ -117,6 +124,26 @@
                     </div>
 
                     <div class="form-group mb-4">
+                        <label class="font-weight-bold text-dark">Tipe Kegiatan</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text input-group-text-modern">
+                                    <i class="fas fa-clock text-gray-400"></i>
+                                </span>
+                            </div>
+                            <select name="tipe" class="custom-select custom-select-modern" required>
+                                <option value="sekali" <?= (isset($kegiatan) && $kegiatan['tipe'] == 'sekali') ? 'selected' : '' ?>>Kegiatan Sekali Saja (Contoh: Tugas Proyek)</option>
+                                <option value="harian" <?= (isset($kegiatan) && $kegiatan['tipe'] == 'harian') ? 'selected' : '' ?>>Kegiatan Berkelanjutan/Harian (Contoh: Sholat)</option>
+                            </select>
+                        </div>
+                        <small class="text-muted ml-2">
+                            <i class="fas fa-info-circle text-info"></i> 
+                            <strong>Harian:</strong> Siswa bisa mengerjakan berulang setiap hari. 
+                            <strong>Sekali:</strong> Siswa hanya bisa mengerjakan satu kali selamanya.
+                        </small>
+                    </div>
+
+                    <div class="form-group mb-4">
                         <label class="font-weight-bold text-dark">Instruksi Tugas</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
@@ -132,14 +159,12 @@
 
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h6 class="text-uppercase font-weight-bold text-gray-500 small m-0">Kriteria Penilaian & Poin</h6>
-                        <!-- Change Class: add_criteria_btn (was add_field_button) to prevent conflict -->
                         <button class="btn btn-sm btn-success rounded-pill px-3 add_criteria_btn" type="button">
                             <i class="fas fa-plus mr-1"></i> Tambah Kriteria
                         </button>
                     </div>
 
                     <div class="criteria-card bg-light">
-                        <!-- Change Class: criteria_fields_wrap (was input_fields_wrap) to prevent conflict -->
                         <div class="criteria_fields_wrap">
                             <?php if (isset($kriteria) && !empty($kriteria)) : ?>
                                 <?php foreach ($kriteria as $k) : ?>
@@ -211,12 +236,9 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // Menggunakan selector class yang BERBEDA agar tidak bentrok dengan script global
         var wrapper = document.querySelector(".criteria_fields_wrap");
         var addButton = document.querySelector(".add_criteria_btn");
         var maxFields = 10;
-        
-        // Hitung jumlah row yang sudah ada
         var x = document.querySelectorAll(".criteria_fields_wrap .row").length;
 
         if(addButton && wrapper) {
@@ -256,7 +278,6 @@
             });
 
             wrapper.addEventListener("click", function(e) {
-                // Event delegation untuk tombol hapus
                 if (e.target.closest(".remove_field_custom")) {
                     e.preventDefault();
                     e.target.closest(".row").remove();

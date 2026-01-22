@@ -45,14 +45,15 @@ class Tugas extends BaseController
             $kegiatan = $this->kegiatanModel->getKegiatanByWalas($kelas['wali_kelas_id']);
             
             foreach ($kegiatan as $k) {
-                $status = $this->logModel->cekSudahDikerjakan($siswa['id'], $k['id']);
+                $status = $this->logModel->cekStatusPengerjaan($siswa['id'], $k['id'], $k['tipe']);
                 $kriteria = $this->kriteriaModel->getByKegiatan($k['id']);
                 
                 $daftarTugas[] = [
                     'kegiatan' => $k,
                     'kriteria' => $kriteria,
                     'status'   => $status ? true : false,
-                    'nilai'    => $status ? $status['total_poin_diperoleh'] : 0
+                    'nilai'    => $status ? $status['total_poin_diperoleh'] : 0,
+                    'data_log' => $status
                 ];
             }
         }
@@ -71,10 +72,30 @@ class Tugas extends BaseController
         $siswa = $this->siswaModel->where('user_id', $userId)->first();
         $kegiatanId = $this->request->getPost('kegiatan_id');
         $selectedKriteria = $this->request->getPost('kriteria'); 
-
-        $sudahDikerjakan = $this->logModel->cekSudahDikerjakan($siswa['id'], $kegiatanId);
+        
+        $kegiatan = $this->kegiatanModel->find($kegiatanId);
+        
+        $sudahDikerjakan = $this->logModel->cekStatusPengerjaan($siswa['id'], $kegiatanId, $kegiatan['tipe']);
         if ($sudahDikerjakan) {
-            return redirect()->back()->with('error', 'Tugas ini sudah dikerjakan.');
+            return redirect()->back()->with('error', 'Tugas ini sudah dikerjakan untuk periode ini.');
+        }
+
+        $fileBukti = $this->request->getFile('bukti_foto');
+        $namaBukti = null;
+
+        if (!$fileBukti || !$fileBukti->isValid()) {
+             return redirect()->back()->with('error', 'Mohon lampirkan foto bukti kegiatan.');
+        }
+
+        if ($fileBukti && $fileBukti->isValid() && !$fileBukti->hasMoved()) {
+            $namaBukti = $fileBukti->getRandomName();
+            $pathBukti = FCPATH . 'uploads/bukti/';
+            
+            if (!is_dir($pathBukti)) {
+                mkdir($pathBukti, 0777, true);
+            }
+            
+            $fileBukti->move($pathBukti, $namaBukti);
         }
 
         $totalPoin = 0;
@@ -94,6 +115,7 @@ class Tugas extends BaseController
             'kegiatan_id' => $kegiatanId,
             'siswa_id'    => $siswa['id'],
             'total_poin_diperoleh' => $totalPoin,
+            'bukti_foto'  => $namaBukti,
             'tanggal_dikerjakan'   => date('Y-m-d H:i:s')
         ]);
 
